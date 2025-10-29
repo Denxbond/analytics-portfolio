@@ -1,4 +1,4 @@
-# project1
+# analytics-portfolio
 # Product Analytics Portfolio Cases
 
 This repository collects portfolio-ready case studies that showcase product
