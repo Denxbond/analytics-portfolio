@@ -54,6 +54,12 @@ Each case study represents analytical frameworks I’ve used in real-world envir
 - [Growth Strategy Playbook](growth_strategy_playbook/README.md):  
   Documentation outlining strategic hypotheses and experiment roadmap for scaling key metrics of a rider app.
 
+- [Experimentation System Architecture](experimentation_system_architecture/README.md):  
+  Describes event flow from tracking to data warehouse to dashboards, demonstrating system-level thinking in analytics design.
+
+- [Business Review Dashboard](business_review_dashboard/README.md):  
+  Aggregates core KPIs (NSM, ARPU, retention, churn) into a quarterly business health overview with insights narrative.
+
 ## Disclaimer
 All projects are inspired by analytical challenges I’ve solved professionally, but no proprietary data, logic, or business context is included.  
 All datasets are synthetic and anonymized, created solely for demonstration.  
