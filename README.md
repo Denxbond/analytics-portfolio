@@ -18,7 +18,7 @@ Each case study represents analytical frameworks I’ve used in real-world envir
 - [User Journey Path Analysis](user_journey_path_analysis/README.md):
   Behavioural path aggregation and journey visualization from clickstream data.
 - [Revenue Forecast Model](revenue_forecast_model/README.md):
-  Forecasts next-quarter revenue via exponential smoothing using simulated deposit and churn data.
+  Forecasts next-quarter revenue using deposit and churn data.
 - [Bonus Offer Impact Analysis](bonus_offer_impact_analysis/README.md):
   Evaluates how a promotional bonus affects deposit frequency and ARPU using simulated user data.
 
