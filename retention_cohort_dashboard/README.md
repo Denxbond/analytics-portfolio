@@ -34,4 +34,3 @@ retention_cohort_dashboard/
 ## Key Learnings Showcased
 - Cohort assignment and weekly retention calculations using pandas.
 - Communicating decay patterns with a heatmap visualization.
-- Reproducible portfolio artifact with synthetic but realistic lifecycle data.
