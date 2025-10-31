@@ -1,0 +1,13 @@
+graph LR
+    user[User Session] --> app[Product UI]
+    app --> gtm[GTM Container + Client SDKs]
+    gtm --> collector[Event Collector / Edge Network]
+    collector --> raw[Raw Event Tables (Cloud Storage / Landing Zone)]
+    raw --> pipelines[Streaming + Batch Pipelines]
+    pipelines --> warehouse[Analytics Warehouse]
+    warehouse --> metrics[Metrics Layer (dbt models / SQL views)]
+    metrics --> evaluator[Experiment Evaluator Service]
+    evaluator --> decision[Decision Engine / Feature Flags]
+    metrics --> dashboard[Experiment Dashboard]
+    dashboard --> decision
+
