@@ -5,7 +5,7 @@ Each case study represents analytical frameworks I’ve used in real-world envir
 
 ## TL;DR
 - Explore each case folder for business context, dataset, and analysis outputs.
-- Install standard Python dependencies (e.g., `pandas`, `matplotlib`) to reproduce metrics locally.
+- Install standard Python dependencies (`pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `statsmodels`) to reproduce metrics locally.
 - SQL models illustrate how key metrics could be materialized in a data warehouse or dbt project using anonymized data.
 
 ## Projects
