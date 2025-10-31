@@ -1,9 +1,7 @@
 # User Journey Path Analysis
 
 ## Project Purpose
-This project simulates anonymized clickstream behaviour for a fictional product to
-identify the most common navigation paths from landing to monetisation. It shows
-how behavioural analytics and journey visualisation can uncover conversion
+This project simulates clickstream behaviour to identify the most common navigation paths from landing to monetisation. It shows how behavioural analytics and journey visualisation can uncover conversion
 bottlenecks before running live experiments.
 
 ## How to Run the Analysis
