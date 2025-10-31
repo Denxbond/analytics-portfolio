@@ -1,0 +1,11 @@
+experiment_id,hypothesis,metric,variant_result,p_value,decision,next_action,ROTI_score
+EXP-001,Adding social proof on product pages increases checkout conversion,Checkout Conversion Rate,Variant B +4.8%,0.028,Ship,Roll out to all product pages,8.7
+EXP-002,Streamlining onboarding reduces drop-off,Onboarding Completion Rate,Variant A +3.1%,0.072,Iterate,Test progressive profiling in next sprint,6.5
+EXP-003,Personalized recommendations raise average order value,Average Order Value,Variant B +$2.40,0.041,Ship,Deploy personalization to returning visitors,9.1
+EXP-004,Free shipping threshold increases revenue per visitor,Revenue per Visitor,Variant B +6.2%,0.018,Ship,Coordinate with finance for full rollout,8.9
+EXP-005,Highlighting customer reviews boosts add-to-cart rate,Add-to-Cart Rate,Variant B +2.5%,0.093,Hold,Collect more data during peak traffic,5.4
+EXP-006,Offering chat support reduces churn in trial,Trial-to-Paid Conversion,Variant A +1.4%,0.154,Deprioritize,Focus on self-serve education assets,4.1
+EXP-007,Upsell banner increases subscription upgrades,Upgrade Conversion Rate,Variant B +3.8%,0.047,Ship,Implement upsell banner across app,7.9
+EXP-008,Simplifying pricing page increases plan views,Pricing Page Engagement,Variant A +9.6%,0.012,Ship,Update pricing layout globally,9.5
+EXP-009,Reminder emails recover abandoned carts,Cart Recovery Rate,Variant B +5.1%,0.034,Ship,Automate reminder sequence,8.3
+EXP-010,Gamified referral flow increases invites sent,Referral Invites Sent,Variant A +12.4%,0.026,Ship,Scale gamified flow to international markets,9.2
