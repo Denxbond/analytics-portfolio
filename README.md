@@ -22,6 +22,8 @@ analytics, conversion rate optimization, and analytics engineering skills.
   Behavioural path aggregation with clickstream data and journey visualisation.
 - [Revenue Forecast Model](revenue_forecast_model/README.md):
   Forecasts next-quarter revenue via exponential smoothing using simulated deposit and churn data.
+- [Bonus Offer Impact Analysis](#bonus-offer-impact-analysis):
+  Evaluates how a promotional bonus shifts deposit frequency and ARPU using simulated users.
 
 ## Getting Started
 Each project includes synthetic data, reproducible code, and documentation.
