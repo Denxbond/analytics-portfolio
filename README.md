@@ -20,6 +20,8 @@ analytics, conversion rate optimization, and analytics engineering skills.
   Experiment simulation with statistical lift readout and reporting assets.
 - [User Journey Path Analysis](user_journey_path_analysis/README.md):
   Behavioural path aggregation with clickstream data and journey visualisation.
+- [Revenue Forecast Model](revenue_forecast_model/README.md):
+  Forecasts next-quarter revenue via exponential smoothing using simulated deposit and churn data.
 
 ## Getting Started
 Each project includes synthetic data, reproducible code, and documentation.
