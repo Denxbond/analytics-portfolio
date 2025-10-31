@@ -1,11 +1,9 @@
 ## Bonus Offer Impact Analysis
 
 ### Business Context
-Gaming operators frequently test deposit bonuses to boost player value. This
-simulation estimates how exposing users to a bonus affects deposit frequency
-and Average Revenue Per User (ARPU). The synthetic dataset mimics a 50/50 split
-between control and bonus cohorts so you can practice calculating KPI lift and
-packaging experiment insights.
+Gaming products often use deposit bonuses to increase player engagement and value.
+This simulation models how bonus exposure impacts deposit frequency and Average Revenue Per User (ARPU).
+The dataset represents a 50/50 split between control and bonus groups, allowing clear KPI comparison and uplift measurement.
 
 ### Repository Assets
 - `data/bonus_offer_data.csv` – 2,000 simulated users with group assignment,
@@ -32,8 +30,5 @@ lift, saves an updated dataset in `data/`, and exports the PNG chart to
 | Deposits per User | 2.20 | 3.02 | +0.82 | +37.4% |
 | ARPU | 107.14 | 164.17 | +57.03 | +53.2% |
 
-The bonus cohort deposits 37% more frequently and generates 53% higher ARPU.
-Those increases suggest the promotion successfully nudges players to place more
-deposits and spend more per user. When applying this template to real campaigns,
-confirm that higher monetization offsets bonus costs and validate uplift with a
-statistically powered experiment.
+Bonus exposure led to 37% more deposits and 53% higher ARPU per user, indicating the promotion effectively increased engagement and spending.
+When applying this framework to real campaigns, ensure that the incremental revenue exceeds bonus cost and validate results using a statistically powered A/B test.
