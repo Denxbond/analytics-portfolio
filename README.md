@@ -39,6 +39,21 @@ Each case study represents analytical frameworks I’ve used in real-world envir
 - [Conversion Forecast Bonus](conversion_forecast_bonus/README.md):  
   Models short-term uplift in conversion following a promotional campaign using exponential smoothing.
 
+- [Growth Experiment Tracker](experiment_management_framework/README.md):  
+  Centralized framework for managing hypotheses, test results, and ROTI scoring using synthetic experiment data.
+
+- [North Star Metric Dashboard](nsm_dashboard_simulation/README.md):  
+  Integrates activation, retention, and monetization metrics to visualize the product’s primary growth driver.
+
+- [Pricing & Incentive Elasticity Model](bonus_sensitivity_model/README.md):  
+  Simulates how varying bonus percentages impact LTV and margin to find the optimal trade-off between growth and profitability.
+
+- [Feature Impact Analysis](feature_rollout_simulation/README.md):  
+  Measures engagement and conversion uplift pre/post feature release using synthetic rollout metrics.
+
+- [Growth Strategy Playbook](growth_strategy_playbook/README.md):  
+  Documentation outlining strategic hypotheses and experiment roadmap for scaling key metrics of a rider app.
+
 ## Disclaimer
 All projects are inspired by analytical challenges I’ve solved professionally, but no proprietary data, logic, or business context is included.  
 All datasets are synthetic and anonymized, created solely for demonstration.  
