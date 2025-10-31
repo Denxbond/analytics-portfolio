@@ -18,6 +18,8 @@ analytics, conversion rate optimization, and analytics engineering skills.
   Weekly cohort retention heatmap built from synthetic lifecycle events.
 - [A/B Test Simulator](ab_test_simulator/README.md):
   Experiment simulation with statistical lift readout and reporting assets.
+- [User Journey Path Analysis](user_journey_path_analysis/README.md):
+  Behavioural path aggregation with clickstream data and journey visualisation.
 
 ## Getting Started
 Each project includes synthetic data, reproducible code, and documentation.
