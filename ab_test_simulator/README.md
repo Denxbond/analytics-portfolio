@@ -1,6 +1,6 @@
 # A/B Test Simulator
 
-This portfolio case simulates an online experiment that tests whether a new product feature improves conversions compared with the current experience. It generates synthetic user-level outcomes, calculates classical hypothesis test statistics, and visualizes the lift so stakeholders can understand the impact at a glance.
+This case simulates an online experiment that tests whether a new product feature improves conversions compared with the current experience. It generates user-level outcomes, calculates classical hypothesis test statistics, and visualizes the lift so stakeholders can understand the impact at a glance.
 
 ## Project Structure
 
