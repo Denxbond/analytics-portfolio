@@ -3,7 +3,6 @@
 This portfolio showcases my ability to apply product analytics, experimentation, and business modeling to drive growth, retention, and strategic decision-making.  
 Each case study represents analytical frameworks I’ve used in real-world environments.
 
-## TL;DR
 - Explore each case folder for business context, dataset, and analysis outputs.
 - Install standard Python dependencies (`pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `statsmodels`) to reproduce metrics locally.
 - SQL models illustrate how key metrics could be materialized in a data warehouse or dbt project using anonymized data.
