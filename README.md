@@ -1,6 +1,6 @@
 # Product Analytics Portfolio Cases
 
-This portfolio showcases my ability to apply product analytics, experimentation, and business modeling to drive growth, retention, and strategic decision-making.  
+This portfolio demonstrates how data can be used to evaluate product, growth, and monetization decisions under uncertainty using experimentation, forecasting, and economic modeling.
 Each case study represents analytical frameworks I’ve used in real-world environments.
 
 - Explore each case folder for business context, dataset, and analysis outputs.
