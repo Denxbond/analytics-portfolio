@@ -1,4 +1,4 @@
-# Product Analytics Portfolio Cases
+# Data Analytics Portfolio Cases
 
 This portfolio demonstrates how data can be used to evaluate product, growth, and monetization decisions under uncertainty using experimentation, forecasting, and economic modeling.
 Each case study represents analytical frameworks I’ve used in real-world environments.
