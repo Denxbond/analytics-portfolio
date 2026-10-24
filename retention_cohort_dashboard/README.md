@@ -1,36 +1,46 @@
-# Retention Cohort Dashboard
+# Weekly cohort retention
 
-## Business Context
-Growth and product teams rely on cohort retention to understand how newly onboarded players behave over time. Tracking week-by-week engagement highlights lifecycle health, reveals decay patterns, and uncovers opportunities for lifecycle interventions (CRM triggers, bonus campaigns, or onboarding refinements).
+## Problem and data
 
-## Project Goal
-This case study simulates an iGaming-style product, generates synthetic event data, and visualizes weekly retention by registration cohort. The deliverable is a heatmap dashboard that surfaces where retention erodes so analysts can prioritize experiments and lifecycle actions.
+The synthetic CSV has one or more dated activity events per user and a
+registration date repeated on each event row. It contains no event-type field,
+so any row is treated as an active event. The analysis groups users by the
+Monday-start calendar week of registration.
 
-## How to Run the Analysis
+## Metric and approach
+
+For cohort week *c* and age *k*, retention is distinct users with at least one
+event in calendar week *c + k* divided by distinct users registered in cohort
+week *c*. Duplicate events do not increase the numerator. Week 0 is the
+registration calendar week; it is not forced to 100%. A cell is shown only
+when that whole calendar week is covered by the input observation end date.
+Unobserved future weeks are blank, not zero. A zero in a complete week means
+no event was present in the supplied event log.
+
+## Run
+
+From the portfolio root:
+
 ```bash
-pip install pandas matplotlib seaborn
-jupyter notebook analysis/cohort_retention_analysis.ipynb
+.venv/bin/python retention_cohort_dashboard/analysis/cohort_retention_analysis.py
 ```
 
-Open the notebook and execute all cells to reproduce the cohort retention matrix and export the heatmap image to `reports/retention_heatmap.png`.
+The default observation end is the latest event date. If the extract covers
+days with no events, pass its actual inclusive coverage date explicitly:
 
-## Expected Output
-Running the notebook produces:
-1. A retention matrix table with cohorts in rows and week numbers in columns (week 0–11).
-2. A heatmap saved to `reports/retention_heatmap.png` illustrating the retention decay curve across cohorts.
-
-## Repository Contents
-```
-retention_cohort_dashboard/
-├── data/
-│   └── synthetic_user_events.csv      # Synthetic events for 12 weeks of activity
-├── analysis/
-│   └── cohort_retention_analysis.ipynb  # Notebook with cohort logic and visualization
-├── reports/
-│   └── retention_heatmap.png          # Exported heatmap
-└── README.md                          # Project overview and execution steps
+```bash
+.venv/bin/python retention_cohort_dashboard/analysis/cohort_retention_analysis.py \
+  --observation-end 2024-03-24
 ```
 
-## Key Learnings Showcased
-- Cohort assignment and weekly retention calculations using pandas.
-- Communicating decay patterns with a heatmap visualization.
+The command writes `reports/weekly_retention.csv` and
+`reports/retention_heatmap.png`. The notebook calls the same script.
+
+## Limits
+
+The event file has no extract metadata or event taxonomy, so latest-event date
+is only a proxy for coverage unless `--observation-end` is supplied. Retention
+is descriptive and does not identify why users return or stop returning. The
+bundled file has six users across two registration weeks, so its heatmap only
+demonstrates calculation and censoring behavior; it is not a useful estimate
+of a real product's retention curve.
