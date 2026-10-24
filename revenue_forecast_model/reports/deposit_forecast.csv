@@ -1,0 +1,4 @@
+month,forecast_gross_deposits,selected_method
+2024-01-01,129035.89831435191,seasonal_naive_12m
+2024-02-01,122911.85964627622,seasonal_naive_12m
+2024-03-01,127434.04885031906,seasonal_naive_12m

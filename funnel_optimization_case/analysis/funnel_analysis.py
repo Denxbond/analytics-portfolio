@@ -1,9 +1,7 @@
 """Funnel conversion analysis using synthetic data.
 
-This script demonstrates how a product analyst could quantify the impact of a
-registration-to-deposit (Reg→Dep) optimization initiative. It reads synthetic
-player data, calculates conversion rates by marketing channel, and compares
-performance before and after an experiment variant was introduced.
+This script summarizes synthetic 7-day registration-to-first-deposit conversion
+rates by marketing channel. Channel differences are descriptive, not causal.
 """
 
 from __future__ import annotations
@@ -18,43 +16,38 @@ import pandas as pd
 class FunnelMetrics:
     marketing_channel: str
     registrations: int
-    first_time_depositors: int
+    first_time_depositors_7d: int
     reg_to_dep_conversion_rate: float
-    arpu: float
-    arppu: float
 
 
 def load_data(path: pathlib.Path) -> pd.DataFrame:
     """Load the synthetic funnel dataset."""
 
     df = pd.read_csv(path, parse_dates=["registration_date", "deposit_date"])
+    if df["user_id"].duplicated().any():
+        raise ValueError("expected one row per registered user")
+    if df[["user_id", "registration_date", "marketing_channel"]].isna().any().any():
+        raise ValueError("user_id, registration_date, and marketing_channel are required")
     return df
 
 
 def calculate_metrics(df: pd.DataFrame) -> pd.DataFrame:
-    """Aggregate conversion and revenue metrics by marketing channel."""
+    """Aggregate seven-day conversion metrics by marketing channel."""
 
-    grouped = (
-        df.groupby("marketing_channel")
-        .agg(
-            registrations=("user_id", "nunique"),
-            first_time_depositors=("deposit_date", lambda s: s.notna().sum()),
-            total_revenue=("gross_revenue", "sum"),
-        )
-        .reset_index()
-    )
+    if df["user_id"].duplicated().any():
+        raise ValueError("expected one row per registered user")
 
+    df = df.copy()
+    df["registration_date"] = pd.to_datetime(df["registration_date"], errors="raise")
+    df["deposit_date"] = pd.to_datetime(df["deposit_date"], errors="coerce")
+    elapsed = (df["deposit_date"] - df["registration_date"]).dt.days
+    df["converted_7d"] = elapsed.ge(0) & elapsed.lt(7)
+    grouped = df.groupby("marketing_channel").agg(
+        registrations=("user_id", "nunique"),
+        first_time_depositors_7d=("converted_7d", "sum"),
+    ).reset_index()
     grouped["reg_to_dep_conversion_rate"] = (
-        grouped["first_time_depositors"] / grouped["registrations"]
-    )
-    grouped["arpu"] = grouped["total_revenue"] / grouped["registrations"]
-    grouped["arppu"] = grouped.apply(
-        lambda row: (
-            row["total_revenue"] / row["first_time_depositors"]
-            if row["first_time_depositors"] > 0
-            else 0
-        ),
-        axis=1,
+        grouped["first_time_depositors_7d"] / grouped["registrations"]
     )
 
     return grouped.sort_values("reg_to_dep_conversion_rate", ascending=False)
@@ -67,10 +60,8 @@ def format_metrics(df: pd.DataFrame) -> list[FunnelMetrics]:
         FunnelMetrics(
             marketing_channel=row["marketing_channel"],
             registrations=int(row["registrations"]),
-            first_time_depositors=int(row["first_time_depositors"]),
+            first_time_depositors_7d=int(row["first_time_depositors_7d"]),
             reg_to_dep_conversion_rate=round(row["reg_to_dep_conversion_rate"], 3),
-            arpu=round(row["arpu"], 2),
-            arppu=round(row["arppu"], 2),
         )
         for _, row in df.iterrows()
     ]
@@ -86,8 +77,8 @@ def main() -> None:
     for metric in metrics:
         print(
             f"{metric.marketing_channel:>12} | Reg: {metric.registrations:>2} | "
-            f"FTD: {metric.first_time_depositors:>2} | Conversion: {metric.reg_to_dep_conversion_rate:.1%} | "
-            f"ARPU: ${metric.arpu:>6.2f} | ARPPU: ${metric.arppu:>6.2f}"
+            f"FTD within 7d: {metric.first_time_depositors_7d:>2} | "
+            f"Conversion within 7d: {metric.reg_to_dep_conversion_rate:.1%}"
         )
 
 

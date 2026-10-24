@@ -17,3 +17,10 @@ Product analysts typically:
 5. **Visualize results** to communicate effect sizes, confidence intervals, and the overall narrative to stakeholders.
 
 Run the script with `python feature_rollout_analysis.py` from this directory to reproduce the dataset, summary statistics, and visualization.
+
+## Limitation
+
+The data is generated for a pre/post illustration, not collected from an
+experiment. The Welch tests compare group means and do not account for time
+confounding or establish that the simulated feature caused a change. Treat the
+reported p-values as outputs of the simulation only.

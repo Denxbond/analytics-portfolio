@@ -11,6 +11,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict
 
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -90,7 +93,7 @@ def compute_group_metrics(df: pd.DataFrame) -> Dict[str, LiftMetrics]:
             control=float(control_metrics["deposits_per_user"]),
             bonus=float(bonus_metrics["deposits_per_user"]),
         ),
-        "arpu": LiftMetrics(
+        "gross_revenue_per_user_period": LiftMetrics(
             control=float(control_metrics["arpu"]),
             bonus=float(bonus_metrics["arpu"]),
         ),
@@ -126,46 +129,26 @@ def build_summary_table(metrics: Dict[str, LiftMetrics]) -> pd.DataFrame:
 
 
 def plot_metrics(summary_df: pd.DataFrame) -> None:
-    """Create and save a side-by-side bar chart with lift annotations."""
+    """Plot the two metrics on separate axes because their units differ."""
 
     pivot_df = summary_df.pivot(index="metric", columns="group", values="value")
-    melted = summary_df[["metric", "group", "value"]]
-
     sns.set_theme(style="whitegrid")
-    plt.figure(figsize=(8, 6))
-    ax = sns.barplot(
-        data=melted,
-        x="metric",
-        y="value",
-        hue="group",
-        hue_order=["control", "bonus"],
-        palette=["#4C72B0", "#55A868"],
-    )
-    ax.set_title("Bonus Offer Impact on Deposits and Revenue")
-    ax.set_ylabel("Value")
-    ax.set_xlabel("Metric")
-
-    # Annotate relative lift for each metric above the bonus bar.
-    for i, metric in enumerate(pivot_df.index):
-        control_val = pivot_df.loc[metric, "control"]
-        bonus_val = pivot_df.loc[metric, "bonus"]
-        relative_pct = (bonus_val - control_val) / control_val * 100 if control_val else float("inf")
-        bonus_bar = ax.patches[i * 2 + 1]
-        ax.text(
-            bonus_bar.get_x() + bonus_bar.get_width() / 2,
-            bonus_bar.get_height() + max(pivot_df.loc[metric]) * 0.05,
-            f"+{relative_pct:.1f}%",
-            ha="center",
-            va="bottom",
-            fontsize=10,
-            color="#2F4F4F",
-            fontweight="bold",
-        )
-
-    ax.legend(title="Group")
-    plt.tight_layout()
-    plt.savefig(OUTPUT_CHART_PATH, dpi=300)
-    plt.close()
+    fig, axes = plt.subplots(1, 2, figsize=(9, 4))
+    specs = [
+        ("deposits_per_user", "Deposits per synthetic user-period", "Deposits"),
+        ("gross_revenue_per_user_period", "Gross revenue per synthetic user-period", "Synthetic revenue units"),
+    ]
+    for ax, (metric, title, unit) in zip(axes, specs):
+        values = pivot_df.loc[metric, ["control", "bonus"]]
+        bars = ax.bar(["Control", "Bonus"], values, color=["#4C72B0", "#55A868"])
+        relative_pct = (values["bonus"] - values["control"]) / values["control"] * 100 if values["control"] else float("nan")
+        ax.set_ylim(0, max(values) * 1.35)
+        ax.set_title(f"{title}\nRelative difference: {relative_pct:+.1f}%", fontsize=11)
+        ax.set_ylabel(unit)
+        ax.bar_label(bars, fmt="%.2f", padding=3)
+    fig.tight_layout()
+    fig.savefig(OUTPUT_CHART_PATH, dpi=180)
+    plt.close(fig)
 
 
 def ensure_directories() -> None:
@@ -183,7 +166,7 @@ def main() -> None:
     summary_df = build_summary_table(metrics)
 
     pd.set_option("display.float_format", lambda x: f"{x:,.2f}")
-    print("\nBonus Offer KPI Summary:\n")
+    print("\nSynthetic bonus-offer scenario summary:\n")
     print(summary_df)
 
     plot_metrics(summary_df)

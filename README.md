@@ -1,65 +1,45 @@
-# Data Analytics Portfolio Cases
+# Data analytics projects
 
-This portfolio demonstrates how data can be used to evaluate product, growth, and monetization decisions under uncertainty using experimentation, forecasting, and economic modeling.
-Each case study represents analytical frameworks I’ve used in real-world environments.
+I focus on product and business analysis with Python and SQL, supported by
+reproducible data workflows. This portfolio contains synthetic or public
+learning data; results are demonstrations, not business outcomes.
 
-- Explore each case folder for business context, dataset, and analysis outputs.
-- Install standard Python dependencies (`pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `statsmodels`) to reproduce metrics locally.
-- SQL models illustrate how key metrics could be materialized in a data warehouse or dbt project using anonymized data.
+## Selected work
 
-## Projects
-- [Funnel Optimization Case Study](funnel_optimization_case/README.md):  
-  Reg→Dep funnel analysis with SQL, Python, and an experiment playbook.
+- [Experiment analysis](ab_test_simulator/README.md): binary conversion test
+  simulation with a two-proportion test, confidence interval, and design-based
+  power estimate.
+- [Cohort retention](retention_cohort_dashboard/README.md): weekly active-user
+  retention with duplicate handling and incomplete cohort weeks left unobserved.
+- [Deposit forecast](revenue_forecast_model/README.md): synthetic monthly gross
+  deposits, evaluated against a seasonal-naive baseline with rolling origins.
+- [Funnel analysis](funnel_optimization_case/README.md): descriptive 7-day
+  registration-to-deposit metric and a test plan that separates hypotheses from
+  measured evidence.
 
-- [Retention Cohort Dashboard](retention_cohort_dashboard/README.md):  
-  Weekly cohort retention heatmap built from synthetic lifecycle events.
+## Setup
 
-- [A/B Test Simulator](ab_test_simulator/README.md):  
-  Controlled experiment simulation with lift, p-value, and power reporting.
+Requires Python 3.12. From this directory:
 
-- [User Journey Path Analysis](user_journey_path_analysis/README.md):  
-  Behavioural path aggregation and journey visualization from clickstream data.
+```bash
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m unittest discover -s tests -v
+```
 
-- [Revenue Forecast Model](revenue_forecast_model/README.md):  
-  Forecasts next-quarter revenue using deposit and churn data.
+Run a case from this directory:
 
-- [Bonus Offer Impact Analysis](bonus_offer_impact_analysis/README.md):  
-  Evaluates how a promotional bonus affects deposit frequency and ARPU using simulated user data.
+```bash
+.venv/bin/python ab_test_simulator/analysis/ab_test_simulation.py
+.venv/bin/python retention_cohort_dashboard/analysis/cohort_retention_analysis.py
+.venv/bin/python revenue_forecast_model/analysis/revenue_forecast.py
+.venv/bin/python funnel_optimization_case/analysis/funnel_analysis.py
+```
 
-- [Deposit Funnel Analysis](deposit_funnel_analysis/README.md):  
-  Quantifies user drop-off and conversion across key funnel stages using synthetic event logs.
+The scripts resolve data and report paths from their own locations. Synthetic
+input and generated charts/tables are labeled in each case README.
 
-- [VIP Segmentation Model](vip_segmentation_model/README.md):  
-  Clusters players into behavioral segments (Dormant, Regular, High Roller) using KMeans and financial activity data.
+## Other learning work
 
-- [Provider Performance Dashboard](provider_performance_dashboard/README.md):  
-  Compares revenue, bet volume, and RTP across slot providers to highlight top performers.
-
-- [Conversion Forecast Bonus](conversion_forecast_bonus/README.md):  
-  Models short-term uplift in conversion following a promotional campaign using exponential smoothing.
-
-- [Growth Experiment Tracker](experiment_management_framework/README.md):  
-  Centralized framework for managing hypotheses, test results, and ROTI scoring using synthetic experiment data.
-
-- [North Star Metric Dashboard](nsm_dashboard_simulation/README.md):  
-  Integrates activation, retention, and monetization metrics to visualize the product’s primary growth driver.
-
-- [Pricing & Incentive Elasticity Model](bonus_sensitivity_model/README.md):  
-  Simulates how varying bonus percentages impact LTV and margin to find the optimal trade-off between growth and profitability.
-
-- [Feature Impact Analysis](feature_rollout_simulation/README.md):  
-  Measures engagement and conversion uplift pre/post feature release using synthetic rollout metrics.
-
-- [Growth Strategy Playbook](growth_strategy_playbook/README.md):  
-  Documentation outlining strategic hypotheses and experiment roadmap for scaling key metrics of a rider app.
-
-- [Experimentation System Architecture](experimentation_system_architecture/README.md):  
-  Describes event flow from tracking to data warehouse to dashboards, demonstrating system-level thinking in analytics design.
-
-- [Business Review Dashboard](business_review_dashboard/README.md):  
-  Aggregates core KPIs (NSM, ARPU, retention, churn) into a quarterly business health overview with insights narrative.
-
-## Disclaimer
-All projects are inspired by analytical challenges I’ve solved professionally, but no proprietary data, logic, or business context is included.  
-All datasets are synthetic and anonymized, created solely for demonstration.  
-Any resemblance to real products, metrics, or organizations is purely coincidental.
+The [project index](index.md) links to smaller exercises and notes. They remain
+available as learning work and are not presented as flagship analyses.

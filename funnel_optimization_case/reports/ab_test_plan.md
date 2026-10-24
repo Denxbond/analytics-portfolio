@@ -1,35 +1,33 @@
 # Reg→Dep Funnel Experiment Playbook
 
 ## Context
-A recent review of the registration-to-deposit funnel highlighted above-average
-drop-off for players acquired through Paid Search. Qualitative research revealed
-that users hesitated at the payment verification step, resulting in a 12%
-lower conversion rate relative to other paid channels.
+The bundled synthetic dataset contains 20 registrations and a descriptive
+channel-level conversion gap. It has no payment-step events or qualitative
+research, so the cause of the gap is unknown. Treat payment verification as a
+testable hypothesis, not an established diagnosis.
 
 ## Hypothesis
 If we streamline the payment verification modal for Paid Search cohorts by
-adding contextual copy and reducing required fields, the Reg→Dep conversion rate
-will increase without hurting average revenue per paying user (ARPPU).
+adding contextual copy and reducing required fields, the 7-day
+registration-to-first-deposit conversion rate will increase. This mechanism
+and outcome must be tested with randomized assignment.
 
 ## Test Design
 - **Population:** New users entering the funnel from Paid Search campaigns.
-- **Primary KPI:** Reg→Dep conversion rate within 7 days of registration.
-- **Secondary KPIs:** ARPU, ARPPU, verification completion time, verification drop-off.
-- **Minimum Detectable Effect:** +8% relative lift in conversion.
-- **Sample Size:** 4,200 registrations (powered at 90% with alpha = 0.05).
-- **Experiment Length:** 14 days (based on average daily registrations).
+- **Primary KPI:** Distinct users with a first deposit in `[registration, registration + 7 days)` / eligible randomized users.
+- **Secondary KPIs:** Deposit errors, verification completion, support contacts, and revenue per randomized user over a predeclared window.
+- **Sample size:** Calculate from a measured baseline, chosen minimum detectable effect, two-sided alpha, and target power before launch. The current synthetic sample does not establish these inputs.
+- **Experiment length:** Enroll for the planned sample size, then allow each user a full 7-day outcome window.
 - **Guardrails:** Monitor deposit error rate, CS tickets, and fraudulent activity
   to ensure there are no regressions.
 
 ## Analysis Approach
 1. Use the SQL model in `../sql/funnel_conversion.sql` to build baseline metrics.
 2. During the test, segment treatment vs. control with experiment metadata.
-3. Apply a two-proportion z-test to validate lift in conversion rate.
-4. Compare revenue metrics (ARPU, ARPPU) to confirm there is no cannibalization.
-5. Share results via dashboard snapshot and executive summary in the project README.
+3. Compare randomized arms with a two-proportion method and report the absolute difference and confidence interval.
+4. Analyze revenue per randomized user separately with a predeclared window; do not infer no harm from an underpowered non-significant result.
 
 ## Rollout Recommendation
-Proceed with a phased rollout if the primary KPI shows a statistically
-significant lift with neutral secondary metrics. If ARPPU declines by more than
-5%, run a follow-up test to refine the verification messaging before full
-rollout.
+Proceed only if the prespecified primary analysis and guardrails support it.
+The sample data in this repository is not an experiment result and cannot
+justify a rollout decision.

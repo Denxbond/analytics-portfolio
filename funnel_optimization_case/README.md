@@ -1,33 +1,36 @@
-# Funnel Optimization Case Study
+# Registration-to-deposit funnel
 
-This case study simulates a registration-to-deposit (Reg→Dep) funnel optimization initiative for a digital product.
-It demonstrates how product analytics combines business context, SQL transformations, and Python automation to quantify performance opportunities within the conversion flow.
+## Data and question
 
-## Business Scenario
-- **Problem:** Paid Search cohorts show the lowest Reg→Dep conversion rate due to friction in the payment verification step.
-- **Goal:** Improve conversion without negatively impacting monetization metrics (ARPU, ARPPU).
-- **Approach:** Diagnose the funnel, identify key drop-off points, design an A/B experiment, and quantify the expected uplift.
+The synthetic CSV contains one row per registered user (20 rows, January 2024)
+with a registration date, an optional first deposit date, channel, and a
+revenue field. It contains no payment-step events or randomized treatment.
 
-## Repository Structure
-| Path | Description |
-| --- | --- |
-| `data/synthetic_funnel_data.csv` | Synthetic dataset representing 20 recent registrations with revenue outcomes. |
-| `sql/funnel_conversion.sql` | Example SQL (dbt-ready) model for Reg→Dep conversion and revenue by channel. |
-| `analysis/funnel_analysis.py` | Python script that summarizes funnel metrics using `pandas`. |
-| `reports/ab_test_plan.md` | Experiment design outlining hypothesis, KPIs, and rollout recommendation. |
+## Metric and approach
 
-## Run the Analysis
-1. Install dependencies (only `pandas` is required):
-   ```bash
-   pip install pandas
-   ```
-2. Run the analysis script:
-   ```bash
-   python analysis/funnel_analysis.py
-   ```
-3. Use the SQL model to materialize metrics in your warehouse or dbt project.
+For each channel, conversion is distinct registered users with a deposit in
+`[registration, registration + 7 days)` divided by registered users. Python
+and the SQL example use the same half-open window. The `gross_revenue` field is
+not analyzed because its time window and accounting definition are unspecified.
+Channel differences are descriptive; there is no evidence here that payment
+friction caused them.
 
-## Sample Findings
-Running the script produces channel-level KPIs, highlighting a ~40% conversion
-for Affiliates vs. ~20% for Paid Search. This gap frames the optimization
-opportunity and provides baselines for the A/B test plan.
+## Run
+
+From the portfolio root, install the pinned dependencies and run:
+
+```bash
+.venv/bin/python funnel_optimization_case/analysis/funnel_analysis.py
+```
+
+The SQL in `sql/funnel_conversion.sql` is an example against an event table;
+its source table must provide one registration event per user ID and timestamped
+deposit events.
+
+## Results and limits
+
+The included sample prints 6/6 Affiliates, 4/5 Paid Social, 0/4 Organic, and
+0/5 Paid Search users converting within the window. With only 20 synthetic
+users, these proportions do not support a channel ranking, causal claim, or
+rollout decision. `reports/ab_test_plan.md` is a hypothesis and test plan, not
+an experiment result.
